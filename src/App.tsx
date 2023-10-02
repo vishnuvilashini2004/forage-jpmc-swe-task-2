@@ -1,5 +1,6 @@
 import React from 'react';
 import DataStreamer, { ServerRespond } from './DataStreamer';
+import {setInterval} from "timers";
 import Graph from './Graph';
 import './App.css';
 
@@ -14,7 +15,7 @@ class App extends React.Component<{}, IState> {
 
     this.state = {
       data: [],
-      showGraph: false,
+      showGraph: false
     };
   }
 
@@ -25,16 +26,16 @@ class App extends React.Component<{}, IState> {
   }
 
   getDataFromServer() {
-    let x=0;
+    let x = 0;
     const interval = setInterval(() => {
       DataStreamer.getData((serverResponds: ServerRespond[]) => {
-        this.setState({ 
+        this.setState({
           data: serverResponds,
-          showGraph: true,
+          showGraph: true
         });
       });
       x++;
-      if(x>1000) {
+      if (x > 1000) {
         clearInterval(interval);
       }
     }, 100);
